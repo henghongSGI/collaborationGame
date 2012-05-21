@@ -6,6 +6,7 @@ public class MainMenuVik : Photon.MonoBehaviour
 
     void Awake()
     {
+		//added by larry
         //PhotonNetwork.logLevel = NetworkLogLevel.Full;
 
         //Connect to the main photon server. This is the only IP and port we ever need to set(!)
