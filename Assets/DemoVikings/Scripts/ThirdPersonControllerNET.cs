@@ -222,21 +222,59 @@ public class ThirdPersonControllerNET : Photon.MonoBehaviour
 	}
 	
 	
-	void FixedUpdate ()
-	// Handle movement here since physics will only be calculated in fixed frames anyway
+	bool isFourPointGrounded()
 	{
-      
-		grounded = Physics.Raycast (
-			target.transform.position + target.transform.up * -groundedCheckOffset,
+		bool pt1, pt2, pt3, pt4;
+		
+	    Vector3 dist_forward = target.transform.forward/2;
+		Vector3 dist_right = target.transform.right/2;
+		
+		pt1 = Physics.Raycast (                                                                                                                    
+			
+			(target.transform.position + dist_forward) + target.transform.up * -groundedCheckOffset,
 			target.transform.up * -1,
 			groundedDistance,
 			groundLayers
 		);
-			// Shoot a ray downward to see if we're touching the ground
 
-        if (isRemotePlayer) return;
+		pt2 = Physics.Raycast (                                                                                                                    
+			
+			(target.transform.position - dist_forward) + target.transform.up * -groundedCheckOffset,
+			target.transform.up * -1,
+			groundedDistance,
+			groundLayers
+		);
+		pt3 = Physics.Raycast (                                                                                                                    
+			
+			(target.transform.position + dist_right) + target.transform.up * -groundedCheckOffset,
+			target.transform.up * -1,
+			groundedDistance,
+			groundLayers
+		);
+		pt4 = Physics.Raycast (                                                                                                                    
+			
+			(target.transform.position - dist_right) + target.transform.up * -groundedCheckOffset,
+			target.transform.up * -1,
+			groundedDistance,
+			groundLayers
+		);
+		
+		if (pt1 == false && pt2 == false && pt3 == false && pt4 == false)		
+			return false;
+		else //any one of the points is touching the ground
+			return true;
+	}
+	
+	
 
+	void FixedUpdate ()
+	// Handle movement here since physics will only be calculated in fixed frames anyway
+	{
+		if (isRemotePlayer) return;
+		
+		grounded = isFourPointGrounded ();
 
+      
 		if (grounded)
 		{
 			target.drag = groundDrag;
