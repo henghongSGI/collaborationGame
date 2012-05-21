@@ -3,6 +3,8 @@ using System.Collections;
 
 public class GameManagerVik : Photon.MonoBehaviour
 {
+	
+	//added by larry
 	//added by hh
     // this is a object name (must be in any Resources folder) of the prefab to spawn as player avatar.
     // read the documentation for info how to spawn dynamically loaded game objects at runtime (not using Resources folders)
