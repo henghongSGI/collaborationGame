@@ -1,12 +1,12 @@
 using UnityEngine;
 using System.Collections;
 
-public class triggerMovePlatform extends Photon.MonoBehaviour {
-private float height = 3.2;
-private float speed = 2.0;
-private float timingOffset = 0.0;
-private boolean startMove;
-private GameObject target;
+public class triggerCsScript : Photon.MonoBehaviour {
+private float height = 3.2f;
+private float speed = 2.0f;
+private float timingOffset = 0.0f;
+private bool startMove;
+public GameObject target;
 
 private Vector3 originPos;
 
@@ -18,10 +18,17 @@ void Start () {
 
 // Update is called once per frame
 void Update () {
-	if (startMove  && PhotonNetwork.isMasterClient) 
+	if (startMove) 
 	{
-		//var offset = (1 + Mathf.Sin(PhotonNetwork.time * speed + timingOffset)) * height / 2;
-		//target.transform.position = originPos + Vector3(0, offset, 0);
+	float math = Mathf.Sin(((float)PhotonNetwork.time)*speed+timingOffset);
+	float offset = (1.0f + math )* height / 2.0f;
+	Vector3 FinalPosition = originPos + new Vector3(0.0f, offset, 0.0f);
+	if(target.transform.position != FinalPosition){
+			 target.transform.position = Vector3.Lerp(target.transform.position, FinalPosition,  0.05F);
+			}
+		}		
+			
+			
 	}
 /*	else if (!startMove && target.transform.position != originPos) {
 		var currentPos = target.transform.position;
@@ -32,8 +39,6 @@ void Update () {
 		originPos = target.transform.position;
 	}
 	*/
-}
-
 void OnTriggerEnter() {
 	startMove = true;
 }

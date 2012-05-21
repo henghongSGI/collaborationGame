@@ -45,7 +45,6 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Misc Scripts\holdRigidObjectScript.js" />
-     <Compile Include="Assets\Misc Scripts\triggerMovePlatform.js" />
      <None Include="Assets\Photon Unity Networking\Plugins\PhotonNetwork\library\release_history.txt" />
      <None Include="Assets\Photon Unity Networking\changelog.txt" />
      <None Include="Assets\DemoVikings\Demo\READ ME FIRST.txt" />
