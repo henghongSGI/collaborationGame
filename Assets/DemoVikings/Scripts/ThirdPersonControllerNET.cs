@@ -12,7 +12,7 @@ public class ThirdPersonControllerNET : Photon.MonoBehaviour
 	private float holdDistance = 1.0f;
 	private Rigidbody rigid;
 		// The object we're steering
-	public float speed = 1.0f, walkSpeedDownscale = 2.0f, turnSpeed = 2.0f, mouseTurnSpeed = 0.3f, jumpSpeed = 1.0f;
+	public float speed = 1.0f, walkSpeedDownscale = 1.0f, turnSpeed = 2.0f, mouseTurnSpeed = 0.3f, jumpSpeed = 1.0f;
 		// Tweak to ajust character responsiveness
 	public LayerMask groundLayers = -1;
 		// Which layers should be walkable?
@@ -31,7 +31,7 @@ public class ThirdPersonControllerNET : Photon.MonoBehaviour
 	
 	
 	private const float inputThreshold = 0.01f,
-		groundDrag = 5.0f,
+		groundDrag = 3.0f,
 		directionalJumpFactor = 0.7f;
 		// Tweak these to adjust behaviour relative to speed
 	private const float groundedDistance = 0.5f;
@@ -304,12 +304,12 @@ public class ThirdPersonControllerNET : Photon.MonoBehaviour
 				
 				float appliedSpeed = walking ? speed / walkSpeedDownscale : speed;
 					// Scale down applied speed if in walk mode
-				
+				/*
 				if (Input.GetAxis ("Vertical") < 0.0f)
 				// Scale down applied speed if walking backwards
 				{
 					appliedSpeed /= walkSpeedDownscale;
-				}
+				}*/
 
 				if (movement.magnitude > inputThreshold)
 				// Only apply movement if we have sufficient input
