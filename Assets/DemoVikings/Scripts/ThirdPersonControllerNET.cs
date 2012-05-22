@@ -31,7 +31,7 @@ public class ThirdPersonControllerNET : Photon.MonoBehaviour
 	
 	
 	private const float inputThreshold = 0.01f,
-		groundDrag = 3.0f,
+		groundDrag = 5.0f,
 		directionalJumpFactor = 0.7f;
 		// Tweak these to adjust behaviour relative to speed
 	private const float groundedDistance = 0.5f;
