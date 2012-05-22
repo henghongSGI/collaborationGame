@@ -5,6 +5,8 @@ public delegate void JumpDelegate ();
 enum GravityGunState { Free, Catch, Occupied, Charge, Release};
 public class ThirdPersonControllerNET : Photon.MonoBehaviour
 {
+	
+	//added a line here
 	public Rigidbody target;
 	public int blockammo;
 	public int plankammo;
