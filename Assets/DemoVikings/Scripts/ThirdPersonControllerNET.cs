@@ -280,7 +280,7 @@ public class ThirdPersonControllerNET : Photon.MonoBehaviour
 			target.drag = groundDrag;
 				// Apply drag when we're grounded
 			
-			if (Input.GetButtonUp ("Jump"))
+			if (Input.GetButtonDown ("Jump"))
 			// Handle jumping
 			{
 				target.AddForce (
