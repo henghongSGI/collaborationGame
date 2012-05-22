@@ -54,13 +54,21 @@ public class BoxUpdate : Photon.MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate () 
 	{
+		RaycastHit hit;
+		if(Physics.Raycast(transform.position,-Vector3.up,out hit))
+				{
+				if(hit.transform.name.Contains("Lift")){
+			
+				float math = Mathf.Sin(((float)PhotonNetwork.time)*2.0f);
+				float offset = (1.0f + math )* 3.2f / 2.0f;
+				Vector3 stucktogrd = new Vector3(myTransform.position.x ,offset , myTransform.position.z);
+				myTransform.position = stucktogrd;
+				print(stucktogrd);
 		
-		
-		
-		//If the player has moved at all then fire an RPC to update across the network\
-		// rigidbody.isKinematic = false;
-		//photonView.RPC("turnoffkinematics", PhotonTargets.OthersBuffered);
-		GameObject SpawnManager = GameObject.Find("Code");
+			}	
+		}
+	}	
+	/*GameObject SpawnManager = GameObject.Find("Code");
 		GameManagerVik MoverTest = SpawnManager.GetComponent<GameManagerVik>();
 		if(MoverTest.selectedClass == "Mover")
 		{
@@ -68,9 +76,14 @@ public class BoxUpdate : Photon.MonoBehaviour
 			
 			if(Vector3.Distance(myTransform.position, lastPosition) >=0.01)
 			{
+				
+				//if raycast hits lift, set position to 
+				
 				lastPosition = myTransform.position;
-	
-				photonView.RPC("updateMovement", PhotonTargets.Others, myTransform.position, myTransform.rotation);
+				photonView.RPC("updateMovement", PhotonTargets.Others,myTransform.position, myTransform.rotation);		
+					
+				
+				
 			}
 			
 			if(Quaternion.Angle(myTransform.rotation, lastRotation) >=1)
@@ -84,12 +97,12 @@ public class BoxUpdate : Photon.MonoBehaviour
 				
 			}
 		}else{
+		
 			enabled=false;
 		rigidbody.isKinematic =true;
 		}
-		
-	}
-	
+			}
+			}*/
 	public void OnKinematics()
 	{
 		photonView.RPC("turnOnKinematics", PhotonTargets.Others);

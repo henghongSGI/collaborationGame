@@ -1,20 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\DemoVikings\Scripts\ThirdPersonControllerNET.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Misc Scripts/triggerCsScript.cs">
     <Files>
-      <File FileName="Assets\DemoVikings\Scripts\ThirdPersonControllerNET.cs" Line="283" Column="25" />
-      <File FileName="Assets\DemoVikings\Scripts\GameManagerVik.cs" Line="7" Column="18" />
-      <File FileName="Assets\DemoVikings\Scripts\ThirdPersonCameraNET.cs" Line="1" Column="1" />
-      <File FileName="Assets\DemoVikings\Scripts\MainMenuVik.cs" Line="1" Column="1" />
-=======
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/DemoVikings/Scripts/ThirdPersonControllerNET.cs">
-    <Files>
-      <File FileName="Assets/DemoVikings/Scripts/ThirdPersonControllerNET.cs" Line="34" Column="17" />
-      <File FileName="Assets/DemoVikings/Scripts/GameManagerVik.cs" Line="7" Column="18" />
+      <File FileName="Assets/DemoVikings/Scripts/ThirdPersonControllerNET.cs" Line="39" Column="44" />
+      <File FileName="Assets/DemoVikings/Scripts/GameManagerVik.cs" Line="1" Column="1" />
       <File FileName="Assets/DemoVikings/Scripts/ThirdPersonCameraNET.cs" Line="1" Column="1" />
       <File FileName="Assets/DemoVikings/Scripts/MainMenuVik.cs" Line="1" Column="1" />
->>>>>>> 6685ccdd1af85cab8af07132d9e8b751bdb7528c
+      <File FileName="Assets/Aaron Scripts/ProjectileUpdate.cs" Line="1" Column="1" />
+      <File FileName="Assets/Aaron Scripts/LiftUpdate.cs" Line="21" Column="2" />
+      <File FileName="Assets/Misc Scripts/triggerCsScript.cs" Line="5" Column="7" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

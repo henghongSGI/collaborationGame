@@ -24,7 +24,7 @@ void Update () {
 	float offset = (1.0f + math )* height / 2.0f;
 	Vector3 FinalPosition = originPos + new Vector3(0.0f, offset, 0.0f);
 	if(target.transform.position != FinalPosition){
-			 target.transform.position = Vector3.Lerp(target.transform.position, FinalPosition,  0.05F);
+			 target.transform.position = Vector3.Lerp(target.transform.position, FinalPosition,  Time.deltaTime * 5);
 			}
 		}		
 			
