@@ -3,6 +3,7 @@ using System.Collections;
 
 public class triggerCsScript : Photon.MonoBehaviour {
 public float height = 3.2f;
+public Texture viewerTexture;
 private float speed = 0.5f;
 private float timingOffset = 0.0f;
 private bool startMove;
@@ -48,7 +49,6 @@ void Update ()
 			localLiftTime = 0.0f;
 			started = true;		
 		}				
-		Debug.Log(localLiftTime);	
 		float math = Mathf.Sin(localLiftTime*speed+timingOffset);
 		float offset = (1.0f + math )* height / 2.0f;
 	  	FinalPos = originPos + new Vector3(0.0f, offset, 0.0f);
@@ -59,7 +59,12 @@ void Update ()
 		}
 		
 	}		
-
+		GameObject SpawnManager = GameObject.Find("Code");
+		GameManagerVik MoverTest = SpawnManager.GetComponent<GameManagerVik>();
+		if(MoverTest.selectedClass == "Viewer")
+		{
+			this.renderer.material.mainTexture = viewerTexture;
+		}
 	/*	
 	else
 	{
