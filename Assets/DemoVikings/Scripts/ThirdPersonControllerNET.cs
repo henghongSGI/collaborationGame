@@ -69,7 +69,7 @@ public class ThirdPersonControllerNET : Photon.MonoBehaviour
 	// If target is not set, try using fallbacks
 	{
 		blockammo =1 ;
-		plankammo = 1;
+		plankammo = 5;
 		if (target == null)
 		{
 			target = GetComponent<Rigidbody> ();
@@ -111,14 +111,14 @@ public class ThirdPersonControllerNET : Photon.MonoBehaviour
 				if(blockammo>0){
 						PhotonNetwork.Instantiate("pBlock",transform.position+transform.forward,transform.rotation,0);
 				
-				//blockammo--;
+				blockammo--;
 					}
 				}
 				if (Input.GetKeyUp("t")){
 				if(plankammo>0){
 						PhotonNetwork.Instantiate("pPlatform",transform.position+transform.forward,transform.rotation,0);
 				
-				//plankammo--;
+				plankammo--;
 						}
 					}
 				
