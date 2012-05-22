@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 public class triggerCsScript : Photon.MonoBehaviour {
-private float height = 3.2f;
+public float height = 3.2f;
 private float speed = 2.0f;
 private float timingOffset = 0.0f;
 private bool startMove;

@@ -272,11 +272,11 @@ public class ThirdPersonControllerNET : Photon.MonoBehaviour
 	void FixedUpdate ()
 	// Handle movement here since physics will only be calculated in fixed frames anyway
 	{
-		if (isRemotePlayer) return;
-		
 		grounded = isFourPointGrounded ();
 
-      
+      	if (isRemotePlayer) return;
+		
+	
 		if (grounded)
 		{
 			target.drag = groundDrag;
