@@ -54,21 +54,7 @@ public class BoxUpdate : Photon.MonoBehaviour
 	// Update is called once per frame
 	void FixedUpdate () 
 	{
-		RaycastHit hit;
-		if(Physics.Raycast(transform.position,-Vector3.up,out hit))
-				{
-				if(hit.transform.name.Contains("Lift")){
-			
-				float math = Mathf.Sin(((float)PhotonNetwork.time)*2.0f);
-				float offset = (1.0f + math )* 3.2f / 2.0f;
-				Vector3 stucktogrd = new Vector3(myTransform.position.x ,offset , myTransform.position.z);
-				myTransform.position = stucktogrd;
-				print(stucktogrd);
-		
-			}	
-		}
-	}	
-	/*GameObject SpawnManager = GameObject.Find("Code");
+		GameObject SpawnManager = GameObject.Find("Code");
 		GameManagerVik MoverTest = SpawnManager.GetComponent<GameManagerVik>();
 		if(MoverTest.selectedClass == "Mover")
 		{
@@ -101,8 +87,9 @@ public class BoxUpdate : Photon.MonoBehaviour
 			enabled=false;
 		rigidbody.isKinematic =true;
 		}
-			}
-			}*/
+			
+	}
+			
 	public void OnKinematics()
 	{
 		photonView.RPC("turnOnKinematics", PhotonTargets.Others);
