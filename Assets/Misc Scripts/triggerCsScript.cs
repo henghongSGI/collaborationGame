@@ -3,33 +3,84 @@ using System.Collections;
 
 public class triggerCsScript : Photon.MonoBehaviour {
 public float height = 3.2f;
-private float speed = 2.0f;
+private float speed = 0.5f;
 private float timingOffset = 0.0f;
 private bool startMove;
 public GameObject target;
 
-private Vector3 originPos;
+private Vector3 originPos;	
+private Vector3 FinalPos;
+	
+private float lastFrameTime;
+private float thisFrameTime;
 
+private float localLiftTime;	
+	
+private bool started = false;
+	
 // Use this for initialization
 void Start () {
 	startMove = false;
 	originPos = target.transform.position;
+		
+		thisFrameTime = (float)PhotonNetwork.time;
+		
 }
 
 // Update is called once per frame
-void Update () {
+void Update () 
+{
+
+	
+	lastFrameTime = thisFrameTime;
+	thisFrameTime = (float)PhotonNetwork.time;
+		
+	float photonDelta = thisFrameTime - lastFrameTime;
+	
+		
 	if (startMove) 
 	{
-	float math = Mathf.Sin(((float)PhotonNetwork.time)*speed+timingOffset);
-	float offset = (1.0f + math )* height / 2.0f;
-	Vector3 FinalPosition = originPos + new Vector3(0.0f, offset, 0.0f);
-	if(target.transform.position != FinalPosition){
-			 target.transform.position = Vector3.Lerp(target.transform.position, FinalPosition,  Time.deltaTime * 5);
-			}
-		}		
-			
-			
+		localLiftTime += photonDelta;
+		
+		if (!started)
+		{
+		
+			localLiftTime = 0.0f;
+			started = true;		
+		}				
+		Debug.Log(localLiftTime);	
+		float math = Mathf.Sin(localLiftTime*speed+timingOffset);
+		float offset = (1.0f + math )* height / 2.0f;
+	  	FinalPos = originPos + new Vector3(0.0f, offset, 0.0f);
+//	target.transform.position = FinalPosition;
+		if(target.transform.position != FinalPos)
+		{
+			target.transform.position = Vector3.Lerp(target.transform.position, FinalPos, Time.deltaTime * 2);
+		}
+		
+	}		
+
+	/*	
+	else
+	{
+		
+			if (FinalPos.y > originPos.y)
+		{
+			localLiftTime += photonDelta;
+			float math = Mathf.Sin(localLiftTime*speed+timingOffset);
+			float offset = (1.0f + math )* height / 2.0f;
+	  	
+		  	FinalPos = originPos - new Vector3(0.0f, offset, 0.0f);
+		}
+		if (FinalPos.y < originPos.y)
+		{
+			FinalPos = originPos;
+		}
 	}
+*/
+	
+	
+}
 /*	else if (!startMove && target.transform.position != originPos) {
 		var currentPos = target.transform.position;
 		target.transform.position = currentPos - Vector3(0, 0.1, 0);
