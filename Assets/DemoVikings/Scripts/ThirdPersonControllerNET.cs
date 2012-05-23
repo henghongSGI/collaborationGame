@@ -127,52 +127,59 @@ public class ThirdPersonControllerNET : Photon.MonoBehaviour
 			
 		if(target.name.Contains("Mover"))
 		{
-						if(gravityGunState == GravityGunState.Free) {
-					           		 if(Input.GetButton("Fire1")) {
+				if(gravityGunState == GravityGunState.Free) 
+				{
+					    if(Input.GetButton("Fire1")) 
+						{
 					                RaycastHit hit;
 									LayerMask layerMask = -1;
-					                if(Physics.Raycast(transform.position, transform.forward-transform.up,out hit, 50.0f, layerMask)) {
-					                    if(hit.rigidbody) {
+					                if(Physics.Raycast(transform.position, transform.forward-transform.up,out hit, 50.0f, layerMask)) 
+									{
+					                    if(hit.rigidbody) 
+										{
 					                        rigid = hit.rigidbody;
 					                        rigid.isKinematic = true;
 					                        gravityGunState = GravityGunState.Catch;
 					                       
 					                    }
 					                }
-					            }
-					        }
-					        else if(gravityGunState == GravityGunState.Catch) {
-					            rigid.transform.position = transform.position + transform.forward * holdDistance;
-					            rigid.transform.rotation = transform.rotation;
-					            if(!Input.GetButton("Fire1"))
-					                gravityGunState = GravityGunState.Occupied;     
-					        }
-					        else if(gravityGunState == GravityGunState.Occupied) {            
-					            rigid.transform.position = transform.position + transform.forward * holdDistance;
-								 rigid.transform.rotation = transform.rotation;
-					            if(Input.GetButton("Fire1"))
-					                gravityGunState = GravityGunState.Charge;
-					        }
-					        else if(gravityGunState == GravityGunState.Charge && Screen.lockCursor == true) {
-								rigid.transform.position = transform.position + transform.forward * holdDistance;
-								 rigid.transform.rotation = transform.rotation;
-					            if(!Input.GetButton("Fire1") && Screen.lockCursor == true)
-					            {
-									if(rigid.name.Contains("pPlatform")){
-									rigid.isKinematic = true;
-									}else{
-					            	rigid.isKinematic = false;
-									}
-					                gravityGunState = GravityGunState.Release;
-					               
-					                
-					            }
-					        }
-					        else if(gravityGunState == GravityGunState.Release && Screen.lockCursor == true) {
+					     }
+				}
+				else if(gravityGunState == GravityGunState.Catch) 
+				{
+					    rigid.transform.position = transform.position + transform.forward * holdDistance;
+					    rigid.transform.rotation = transform.rotation;
+					    if(!Input.GetButton("Fire1"))
+					           gravityGunState = GravityGunState.Occupied;     
+				}
+				else if(gravityGunState == GravityGunState.Occupied) 
+				{            
+					    rigid.transform.position = transform.position + transform.forward * holdDistance;
+						rigid.transform.rotation = transform.rotation;
+					    if(Input.GetButton("Fire1"))
+					           gravityGunState = GravityGunState.Charge;
+				}
+				else if(gravityGunState == GravityGunState.Charge && Screen.lockCursor == true) 
+				{
+						rigid.transform.position = transform.position + transform.forward * holdDistance;
+						rigid.transform.rotation = transform.rotation;
+					    if(!Input.GetButton("Fire1") && Screen.lockCursor == true)
+					    {
+							if(rigid.name.Contains("pPlatform"))
+								rigid.isKinematic = true;
+							else	
+								rigid.isKinematic = false;
+							gravityGunState = GravityGunState.Release;
+					                   
+					    }
+				}
+				else if(gravityGunState == GravityGunState.Release && Screen.lockCursor == true) 
+				{
 					            
-					            gravityGunState = GravityGunState.Free;
-					        }
-			}
+					    gravityGunState = GravityGunState.Free;
+				}
+		
+		}
 		
 		if (Input.GetMouseButton (1) && (!requireLock || controlLock || Screen.lockCursor))
 		// If the right mouse button is held, rotation is locked to the mouse

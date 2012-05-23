@@ -6,7 +6,7 @@ public float height = 3.2f;
 public Texture viewerTexture;
 private float speed = 0.5f;
 private float timingOffset = 0.0f;
-private bool startMove;
+//private bool startMove;
 public GameObject target;
 
 private Vector3 originPos;	
@@ -14,20 +14,14 @@ private Vector3 FinalPos;
 	
 private float lastFrameTime;
 private float thisFrameTime;
+private float photonDelta;
 
 private float localLiftTime;	
 	
 private bool started = false;
 	
-// Use this for initialization
-void Start () {
-	startMove = false;
-	originPos = target.transform.position;
-		
-		thisFrameTime = (float)PhotonNetwork.time;
-		
-}
 
+/*
 // Update is called once per frame
 void Update () 
 {
@@ -52,20 +46,21 @@ void Update ()
 		float math = Mathf.Sin(localLiftTime*speed+timingOffset);
 		float offset = (1.0f + math )* height / 2.0f;
 	  	FinalPos = originPos + new Vector3(0.0f, offset, 0.0f);
-//	target.transform.position = FinalPosition;
+			
 		if(target.transform.position != FinalPos)
 		{
 			target.transform.position = Vector3.Lerp(target.transform.position, FinalPos, Time.deltaTime * 2);
 		}
 		
 	}		
-		GameObject SpawnManager = GameObject.Find("Code");
-		GameManagerVik MoverTest = SpawnManager.GetComponent<GameManagerVik>();
-		if(MoverTest.selectedClass == "Viewer")
-		{
-			this.renderer.material.mainTexture = viewerTexture;
-		}
-	/*	
+	
+	GameObject SpawnManager = GameObject.Find("Code");
+	GameManagerVik MoverTest = SpawnManager.GetComponent<GameManagerVik>();
+	if(MoverTest.selectedClass == "Viewer")
+	{
+		this.renderer.material.mainTexture = viewerTexture;
+	}
+	
 	else
 	{
 		
@@ -82,26 +77,99 @@ void Update ()
 			FinalPos = originPos;
 		}
 	}
-*/
+
 	
 	
 }
-/*	else if (!startMove && target.transform.position != originPos) {
-		var currentPos = target.transform.position;
-		target.transform.position = currentPos - Vector3(0, 0.1, 0);
-	}
-	else{
-		target.transform.position = originPos;
-		originPos = target.transform.position;
-	}
-	*/
+
 void OnTriggerEnter() {
 	startMove = true;
 }
 
 void OnTriggerExit() {
 	startMove = false;
+}*/
+
+//Larry: Network code attempt, disabled for now
+	
+/*	
+[RPC]
+void updateLiftTime (float liftTime)
+{	
+	Debug.Log("updating lift");
+		
+    localLiftTime = liftTime;
+}
+	
+void sendLiftTime(PhotonTargets target)
+{
+
+	photonView.RPC("updateLiftTime", target, localLiftTime);
 }
 
+void sendLiftTime(PhotonPlayer target)
+{
+	//do i need to do anything? Target isn't a player...
+}	
+*/
+// Use this for initialization
+void Start () {
+	//startMove = false;
+	originPos = target.transform.position;
+	localLiftTime = 0.0f;	
+	thisFrameTime = (float)PhotonNetwork.time;
+	
+	
 
+}	
+
+//These must be updated every frame. Put only those things you can't escape from updating every frame here.
+void FixedUpdate()
+{
+	lastFrameTime = thisFrameTime;
+	thisFrameTime = (float)PhotonNetwork.time;
+		
+	photonDelta = thisFrameTime - lastFrameTime;
+
+	
+	if (!started)
+	{
+		localLiftTime = 0.0f;
+		started = true;		
+	}
+	
+	GameObject SpawnManager = GameObject.Find("Code");
+	GameManagerVik MoverTest = SpawnManager.GetComponent<GameManagerVik>();
+	
+	if(MoverTest.selectedClass == "Viewer")
+	{
+	
+		this.renderer.material.mainTexture = viewerTexture;
+	}
+					
+	//sendLiftTime(PhotonTargets.Others);
+}		
+
+//Larry: This method is more useful than TriggerEnter and TriggerExit. It only runs if there's an object on top of the trigger, so will handle situations such as "player quits game while on top of button" or
+//"object is deleted while on top of button". 
+void OnTriggerStay()
+{
+		
+	localLiftTime += photonDelta;
+		
+				
+	float math = Mathf.Sin(localLiftTime*speed+timingOffset);
+	float offset = (1.0f + math )* height / 2.0f;
+	FinalPos = originPos + new Vector3(0.0f, offset, 0.0f);
+			
+	if(target.transform.position != FinalPos)
+	{
+			target.transform.position = Vector3.Lerp(target.transform.position, FinalPos, Time.deltaTime * 2);
+	}
+		
+}		
+
+	
+
+	
 }
