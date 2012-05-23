@@ -92,7 +92,7 @@ void OnTriggerExit() {
 
 //Larry: Network code attempt, disabled for now
 	
-/*	
+	
 [RPC]
 void updateLiftTime (float liftTime)
 {	
@@ -103,7 +103,6 @@ void updateLiftTime (float liftTime)
 	
 void sendLiftTime(PhotonTargets target)
 {
-
 	photonView.RPC("updateLiftTime", target, localLiftTime);
 }
 
@@ -111,7 +110,7 @@ void sendLiftTime(PhotonPlayer target)
 {
 	//do i need to do anything? Target isn't a player...
 }	
-*/
+
 // Use this for initialization
 void Start () {
 	//startMove = false;
@@ -146,8 +145,9 @@ void FixedUpdate()
 	
 		this.renderer.material.mainTexture = viewerTexture;
 	}
-					
-	//sendLiftTime(PhotonTargets.Others);
+	
+	if (MoverTest.gameStarted)
+		sendLiftTime(PhotonTargets.All);
 }		
 
 //Larry: This method is more useful than TriggerEnter and TriggerExit. It only runs if there's an object on top of the trigger, so will handle situations such as "player quits game while on top of button" or

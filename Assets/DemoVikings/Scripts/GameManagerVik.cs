@@ -14,6 +14,9 @@ public class GameManagerVik : Photon.MonoBehaviour
 	public string moverPrefabName = "Mover";
 	public string viewerPrefabName = "Viewer";
     public string selectedClass;
+	
+	public bool gameStarted = false;
+	public int playerCount = 0;
 	void OnJoinedRoom()
     {
 		//StartGame(this.jumperPrefabName);
@@ -50,14 +53,30 @@ public class GameManagerVik : Photon.MonoBehaviour
 
         // Spawn our local player
 		if(prefabName=="Mover")
-        PhotonNetwork.Instantiate(prefabName, transform.position+transform.right,transform.rotation, 0, objs);
+		{
+        	PhotonNetwork.Instantiate(prefabName, transform.position+transform.right,transform.rotation, 0, objs);
+		}
 		if(prefabName=="Jumper")
-        PhotonNetwork.Instantiate(prefabName, transform.position+transform.right*2, transform.rotation, 0, objs);
-		if(prefabName=="Builder")
-        PhotonNetwork.Instantiate(prefabName, transform.position+transform.right*3, transform.rotation, 0, objs);
-		if(prefabName=="Viewer")
-        PhotonNetwork.Instantiate(prefabName, transform.position+transform.right*4, transform.rotation, 0, objs);
+		{
+        	PhotonNetwork.Instantiate(prefabName, transform.position+transform.right*2, transform.rotation, 0, objs);
 		
+		}
+		if(prefabName=="Builder")
+		{
+			PhotonNetwork.Instantiate(prefabName, transform.position+transform.right*3, transform.rotation, 0, objs);
+		
+		}
+		if(prefabName=="Viewer")
+		{
+        	PhotonNetwork.Instantiate(prefabName, transform.position+transform.right*4, transform.rotation, 0, objs);
+		
+		}
+		//spawn network synced objects
+		//PhotonNetwork.Instantiate("checkPointTriggerLift", transform.position+transform.right*10, transform.rotation, 0);
+		//PhotonNetwork.Instantiate("liftPrefab", transform.position+transform.right*15, transform.rotation, 0);
+		
+		gameStarted = true;
+	
     }
 
 
@@ -111,7 +130,10 @@ public class GameManagerVik : Photon.MonoBehaviour
 		{
 			if (GUILayout.Button("Leave& QUIT"))
        		{
-       	    	 PhotonNetwork.LeaveRoom();
+       			PhotonNetwork.LeaveRoom();
+				//local
+				gameStarted = false;
+				
         	}
 		}
 
